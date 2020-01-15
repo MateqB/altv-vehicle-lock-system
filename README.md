@@ -1,7 +1,9 @@
 # Mateq LockSystem
 !!! READ
 You need to execute function every time vehicle is created on server-side!
+
 Function:
+
 ``CreateVehicle(vehicle.id)``
 Usage:
       ``  chat.registerCommand('car', async (player, text) => {
@@ -21,7 +23,7 @@ Usage:
        
 All functions: 
 
-``SetOwner(player, vehicle) // Arg vehicle is an object
+```SetOwner(player, vehicle) // Arg vehicle is an object
 
 IsOwner(player, vehicle) // returns true/false
 
@@ -30,4 +32,4 @@ GetOwner(vehicle) // returns player object
 GetVehicle(vehicle) // returns vehicle id + owner player object - If car doesn't have an owner, owner === null
 
 
-``
+```
