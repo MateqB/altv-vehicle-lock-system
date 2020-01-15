@@ -20,7 +20,6 @@ alt.onServer('mtq:notify', (notification) => {
 alt.onServer('mtq:locktoggle', (lockstate) => {
     const pos = alt.Player.local.pos;
     const veh = game.getClosestVehicle(pos.x, pos.y, pos.z, 10, 0, 70)
-    // dziwiek PlayVehicleDoorOpenSound
     if(lockstate === 1) {
         game.setVehicleDoorsLocked(veh, 2)
         game.setVehicleLights(veh, 2)
