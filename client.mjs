@@ -9,7 +9,6 @@ function showNotification(message, backgroundColor = null, notifImage = null, ic
         game.setNotificationMessage4(notifImage, notifImage, true, iconType, title, subtitle, durationMult);
     return game.drawNotification(false, true);
 }
-alt.log('Loaded: vehicle-mods->client/engine.mjs')
 alt.on('keydown', async (key) => {
     if (key === 'U'.charCodeAt(0)) {
                    alt.emitServer('mtq:lockSystem')
