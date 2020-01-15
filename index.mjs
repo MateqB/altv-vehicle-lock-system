@@ -5,8 +5,6 @@ const CarDataArray = []
 export async function CreateVehicle(vehicle) {
     const carData = { car: vehicle, owner: null }
     await CarDataArray.push(carData)
-    console.log(carData.car)
-    console.log(carData.owner)
 }
 
 export async function SetOwner(player, vehicle) {
@@ -58,7 +56,6 @@ export function getClosestVehicleByPlayer(player) {
         alt.onClient('mtq:lockSystem', async (player) => {
             let veh = await getClosestVehicleByPlayer(player).vehicle
             const ownerbl = await IsOwner(player, veh)
-            console.log(ownerbl)
             if(player.vehicle) {
                 if(ownerbl) {
                     alt.emitClient(player, 'mtq:locktoggle', player.vehicle.lockState)
@@ -66,17 +63,15 @@ export function getClosestVehicleByPlayer(player) {
                 if(ownerbl === false) {
                     const owner = await GetOwner(veh)
                     if(owner === null) {
-                        console.log(`${player.name} is owner of this vehicle`)
                         alt.emitClient(player, 'mtq:notify', 'You found keys in the vehicle')
                         SetOwner(player, veh)
                     } else {
-                        console.log(`${player.name} is not owner of this vehicle`)
+                        return
                     }
                 }
             } else {
                 if(ownerbl) {
                     let car = await getClosestVehicleByPlayer(player).vehicle
-                    console.log(car)
                     alt.emitClient(player, 'mtq:locktoggle', car.lockState)
                 }
             }
