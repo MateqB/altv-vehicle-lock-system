@@ -1,8 +1,8 @@
 import * as alt from 'alt-server';
 
 alt.onClient('mtq_locksystem:setOwner', (player, vehicle) => {
-    if(!player.hasSyncedMeta('socialid')) {
-        player.setSyncedMeta('socialid', player.socialId)
+    if(!player.hasStreamSyncedMeta('socialid')) {
+        player.setStreamSyncedMeta('socialid', player.socialId)
     }
     if(!vehicle.hasStreamSyncedMeta("owner")) {
         vehicle.setStreamSyncedMeta("owner", player.socialId)
