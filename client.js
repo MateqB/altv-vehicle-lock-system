@@ -17,7 +17,7 @@ alt.on('keyup', (key) => {
                 showNotification("", null, "CHAR_CARSITE", 7, "Lock System", 'You found keys', 1)
             }
         } else {
-            let veh = alt.Vehicle.getByScriptID(native.getClosestVehicle(alt.Player.local.pos.x, alt.Player.local.pos.y, alt.Player.local.pos.z, 30, 0, 70))
+            let veh = alt.Vehicle.getByScriptID(native.getClosestVehicle(alt.Player.local.pos.x, alt.Player.local.pos.y, alt.Player.local.pos.z, 10, 0, 70))
             if(veh) {
                 let owner = veh.getStreamSyncedMeta("owner")
                 if(owner) {
