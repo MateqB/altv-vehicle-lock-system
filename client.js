@@ -12,6 +12,7 @@ alt.on('keyup', (key) => {
                     showNotification("", null, "CHAR_CARSITE", 7, "Lock System", "You can't find keys in the vehicle", 1)
                 }
             } else {
+                alt.emitServer('mtq_locksystem:setOwner', alt.Player.local.vehicle)
                 showNotification("", null, "CHAR_CARSITE", 7, "Lock System", 'You found keys', 1)
             }
         } else {
