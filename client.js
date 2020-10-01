@@ -6,22 +6,21 @@ alt.on('keyup', (key) => {
         if(alt.Player.local.vehicle) {
             let owner = alt.Player.local.vehicle.getStreamSyncedMeta("owner")
             if(owner) {
-                if(owner == alt.Player.local.getSyncedMeta('socialid')) {
+                if(owner.id == alt.Player.local.id) {
                     toggleVehicleLocks(alt.Player.local.vehicle)
                 } else {
                     showNotification("", null, "CHAR_CARSITE", 7, "Lock System", "You can't find keys in the vehicle", 1)
-
                 }
             } else {
                 alt.emitServer('mtq_locksystem:setOwner', alt.Player.local.vehicle)
                 showNotification("", null, "CHAR_CARSITE", 7, "Lock System", 'You found keys', 1)
             }
         } else {
-            let veh = alt.Vehicle.getByScriptID(native.getClosestVehicle(alt.Player.local.pos.x, alt.Player.local.pos.y, alt.Player.local.pos.z, 10, 0, 70))
+            let veh = getClosestVehicle();
             if(veh) {
                 let owner = veh.getStreamSyncedMeta("owner")
                 if(owner) {
-                    if(owner == alt.Player.local.getSyncedMeta('socialid')) {
+                    if(owner.id == alt.Player.local.id) {
                         toggleVehicleLocks(veh)
                     } else {
                         // Do nothing
@@ -37,8 +36,7 @@ function toggleVehicleLocks(veh) {
     // Some lights sounds idk
 }
 
-alt.onServer('mtq_locksystem:lockUpdate', (vehid, lockstate) => {
-    let veh = alt.Vehicle.getByID(vehid);
+alt.onServer('mtq_locksystem:lockUpdate', (veh, lockstate) => {;
     showNotification("", null, "CHAR_CARSITE", 7, "Lock System", lockstate == 1 ? 'Vehicle unlocked' : 'Vehicle locked', 1)
     if(lockstate == 1) {
         native.playVehicleDoorCloseSound(veh.scriptID, 0)
@@ -76,4 +74,23 @@ function showNotification(message, backgroundColor = null, notifImage = null, ic
     if (notifImage != null)
         native.endTextCommandThefeedPostMessagetext(notifImage, notifImage, true, iconType, title, subtitle, durationMult);
     return native.endTextCommandThefeedPostMpticker(false, true);
+}
+
+function distance(vector1, vector2) {
+    return Math.sqrt(
+        Math.pow(vector1.x - vector2.x, 2) + Math.pow(vector1.y - vector2.y, 2) + Math.pow(vector1.z - vector2.z, 2)
+    );
+}
+
+function getClosestVehicle(range = 10) {
+    let closest = null, lastDist = 999, dist;
+    for(let vehicle of alt.Vehicle.all) {
+        if(vehicle.scriptID === 0) continue;
+        dist = distance(alt.Player.local.pos, vehicle.pos);
+        if(dist <= range && dist < lastDist) {
+            lastDist = dist;
+            closest = vehicle;
+        }
+    }
+    return vehicle;
 }
